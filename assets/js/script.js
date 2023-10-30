@@ -7,7 +7,7 @@ var timeBlockEl = $(".container-lg px-5");
 //function to display and format current date in existing HTML header id currentDay
 function currentTime(){
   var today = dayjs();
-  $("#currentDay").text(today.format('[It is now] H:mmA, dddd D MMMM YYYY'));
+  $("#currentDay").text(today.format('[Today is] dddd D MMMM YYYY'));
   return;
 }
 
@@ -40,7 +40,6 @@ function generateTimes(){
 }
 
 generateTimes();
-
 
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should
