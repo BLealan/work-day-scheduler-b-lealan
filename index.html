@@ -23,12 +23,12 @@
   </head>
 
   <body>
-    <header id="time-box" class="p-5 mb-4 border-5 border-bottom border-dark text-center">
+    <header class="p-5 mb-4 border-5 border-bottom border-dark text-center">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container-lg px-5">
+    <div id="time-box" class="container-lg px-5">
       <!-- Use class for "past", "present", and "future" to apply styles to the
         time-block divs accordingly. The javascript will need to do this by
         adding/removing these classes on each div by comparing the hour in the
@@ -72,7 +72,6 @@
       integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
       crossorigin="anonymous"
       </script>
-
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

@@ -3,6 +3,9 @@
 // in the html.
 
 var timeBlockEl = $("#time-box");
+var pastTime = $(".past");
+var presentTime = $(".present");
+var futureTime = $(".future");
 
 //function to display and format current date in existing HTML header id currentDay
 function currentTime(){
@@ -26,10 +29,25 @@ function generateTimes(){
     var timeBoxEl = $(`<div class="col-2 col-md-1 hour text-center py-3">${time}</div>`);
     var textAreaEl = $(`<textarea class="col-8 col-md-10 description" rows="3"> </textarea>`);
     var saveButtonEl = $(`<button class="btn saveBtn col-2 col-md-1" aria-label="save">`);
-
     var saveStyle = $(`<i class="fas fa-save" aria-hidden="true">`);
 
     saveButtonEl.append(saveStyle);
+
+    var hourWindow = time.replace(/\D/g, "");
+    // console.log(hourWindow);
+    var currentHour = dayjs().format('hA');
+    // console.log(currentHour);
+
+    if (dayjs().isBefore(dayjs(`${time}`))){
+     hourEl.addClass(pastTime);
+     console.log('past');
+    } else if (dayjs().isAfter(dayjs(`${time}`))){
+      hourEl.addClass(futureTime);
+      console.log('future');
+    } else {
+      hourEl.addClass(presentTime);
+      console.log('present');
+    }
 
     hourEl.append(timeBoxEl, textAreaEl, saveButtonEl);
 
@@ -65,8 +83,8 @@ $(function () {
   
 // function checkTime(){
 //   time = dayjs();
-//   if time 
-// }
+
+
 
 function clickToSave(){}
 
