@@ -2,7 +2,7 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-var timeBlockEl = $(".container-lg px-5");
+var timeBlockEl = $("#time-box");
 
 //function to display and format current date in existing HTML header id currentDay
 function currentTime(){
@@ -10,14 +10,13 @@ function currentTime(){
   $("#currentDay").text(today.format('[Today is] dddd D MMMM YYYY'));
   return;
 }
-
 currentTime();
 
 
 function generateTimes(){
 
   timeBlockEl.empty();
-  workingDayTimes  = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
+  var workingDayTimes  = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
 
   for(i = 0; i < workingDayTimes.length; i++){
     var time = workingDayTimes[i];
@@ -35,11 +34,14 @@ function generateTimes(){
     hourEl.append(timeBoxEl, textAreaEl, saveButtonEl);
 
     timeBlockEl.append(hourEl);
+
   }
+  
   return;
 }
 
 generateTimes();
+
 
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should
@@ -61,3 +63,14 @@ $(function () {
     //
   });
   
+// function checkTime(){
+//   time = dayjs();
+//   if time 
+// }
+
+function clickToSave(){}
+
+function saveTask(){}
+
+function getTask(){}
+
