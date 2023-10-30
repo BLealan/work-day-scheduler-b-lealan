@@ -2,9 +2,45 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-//Day.js called to display and format current date in existing header id currentDay
-var today = dayjs();
-$("#currentDay").text(today.format('dddd D MMMM YYYY'));
+var timeBlockEl = $(".container-lg px-5");
+
+//function to display and format current date in existing HTML header id currentDay
+function currentTime(){
+  var today = dayjs();
+  $("#currentDay").text(today.format('[It is now] H:mmA, dddd D MMMM YYYY'));
+  return;
+}
+
+currentTime();
+
+
+function generateTimes(){
+
+  timeBlockEl.empty();
+  workingDayTimes  = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
+
+  for(i = 0; i < workingDayTimes.length; i++){
+    var time = workingDayTimes[i];
+
+    var hourEl = $(`<div id="hour-${time}" class="row time-block">`);
+
+    var timeBoxEl = $(`<div class="col-2 col-md-1 hour text-center py-3">${time}</div>`);
+    var textAreaEl = $(`<textarea class="col-8 col-md-10 description" rows="3"> </textarea>`);
+    var saveButtonEl = $(`<button class="btn saveBtn col-2 col-md-1" aria-label="save">`);
+
+    var saveStyle = $(`<i class="fas fa-save" aria-hidden="true">`);
+
+    saveButtonEl.append(saveStyle);
+
+    hourEl.append(timeBoxEl, textAreaEl, saveButtonEl);
+
+    timeBlockEl.append(hourEl);
+  }
+  return;
+}
+
+generateTimes();
+
 
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should
