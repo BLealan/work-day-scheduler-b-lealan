@@ -1,11 +1,12 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
 var timeBlockEl = $("#time-box");
+var hourEl = $(".row time-block");
 var pastTime = $(".past");
 var presentTime = $(".present");
 var futureTime = $(".future");
+var tasks = $("<textarea>");
+
+var workingDayTimes  = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+
 
 //function to display and format current date in existing HTML header id currentDay
 function currentTime(){
@@ -15,11 +16,10 @@ function currentTime(){
 }
 currentTime();
 
-
+//function to create a box for each time in the array of hours in a working day
 function generateTimes(){
 
   timeBlockEl.empty();
-  var workingDayTimes  = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
 
   for(i = 0; i < workingDayTimes.length; i++){
     var time = workingDayTimes[i];
@@ -33,21 +33,23 @@ function generateTimes(){
 
     saveButtonEl.append(saveStyle);
 
-    var hourWindow = time.replace(/\D/g, "");
+    // var hourWindow = Number(time.replace(/\D/g, ""));
     // console.log(hourWindow);
-    var currentHour = dayjs().format('hA');
+    // var currentHour = dayjs().format('H:mm');
     // console.log(currentHour);
-
-    if (dayjs().isBefore(dayjs(`${time}`))){
-     hourEl.addClass(pastTime);
-     console.log('past');
-    } else if (dayjs().isAfter(dayjs(`${time}`))){
-      hourEl.addClass(futureTime);
-      console.log('future');
-    } else {
-      hourEl.addClass(presentTime);
-      console.log('present');
-    }
+    
+    // function checkTime(){
+    //   if (hourWindow < currentHour){
+    //     hourEl.addClass(pastTime);
+    //     console.log('past');
+    //    } else if (hourWindow > currentHour){
+    //      hourEl.addClass(futureTime);
+    //      console.log('future');
+    //    } else {
+    //      hourEl.addClass(presentTime);
+    //      console.log('present');
+    //    }
+    // }
 
     hourEl.append(timeBoxEl, textAreaEl, saveButtonEl);
 
@@ -59,7 +61,6 @@ function generateTimes(){
 }
 
 generateTimes();
-
 
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should
@@ -81,14 +82,23 @@ $(function () {
     //
   });
   
-// function checkTime(){
-//   time = dayjs();
+// $(".btn saveBtn col-2 col-md-1").click(){
+//   console.log("CLICK");
 
+//   }
+// )
+// function saveTaskToStorage(tasks){
+//   tasks = hourEl($(this).attr());
+//   localStorage.setItem("tasks", JSON.stringify(tasks));
+//   return;
+// }
 
-
-function clickToSave(){}
-
-function saveTask(){}
-
-function getTask(){}
-
+// function getTaskFromStorage(){
+//   var tasks = localStorage.getItem("tasks")
+//   if(tasks){
+//     tasks = JSON.parse(tasks)
+//   } else {
+//     tasks = [];
+//   }
+//   return tasks;
+// }
