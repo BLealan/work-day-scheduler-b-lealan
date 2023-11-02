@@ -4,9 +4,8 @@ var pastTime = $(".past");
 var presentTime = $(".present");
 var futureTime = $(".future");
 var tasks = $("<textarea>");
-
-var workingDayTimes  = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
-
+var taskTextEl = $(".col-8 col-md-10 description").text();
+var workingDayTimes  = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 //function to display and format current date in existing HTML header id currentDay
 function currentTime(){
@@ -26,43 +25,50 @@ function generateTimes(){
 
     var hourEl = $(`<div id="hour-${time}" class="row time-block">`);
 
-    var timeBoxEl = $(`<div class="col-2 col-md-1 hour text-center py-3">${time}</div>`);
+    var timeBoxEl = $(`<div class="col-2 col-md-1 hour text-center py-3">${time}:00</div>`);
     var textAreaEl = $(`<textarea class="col-8 col-md-10 description" rows="3"> </textarea>`);
     var saveButtonEl = $(`<button class="btn saveBtn col-2 col-md-1" aria-label="save">`);
     var saveStyle = $(`<i class="fas fa-save" aria-hidden="true">`);
 
     saveButtonEl.append(saveStyle);
 
-    // var hourWindow = Number(time.replace(/\D/g, ""));
-    // console.log(hourWindow);
-    // var currentHour = dayjs().format('H:mm');
-    // console.log(currentHour);
+    var currentHour = dayjs().format('H');
+    console.log(currentHour);
     
-    // function checkTime(){
-    //   if (hourWindow < currentHour){
-    //     hourEl.addClass(pastTime);
-    //     console.log('past');
-    //    } else if (hourWindow > currentHour){
-    //      hourEl.addClass(futureTime);
-    //      console.log('future');
-    //    } else {
-    //      hourEl.addClass(presentTime);
-    //      console.log('present');
-    //    }
-    // }
+    
+      if (time < currentHour){
+        hourEl.addClass('past');
+       } else if (time > currentHour){
+         hourEl.addClass('future');
+       } else {
+         hourEl.addClass('present');
+       }
+    
 
     hourEl.append(timeBoxEl, textAreaEl, saveButtonEl);
 
     timeBlockEl.append(hourEl);
 
   }
+
+  $(".saveBtn").on("click", function(){
+    alert("Task saved");
+    var $thisButton = $(this);
+    var textAreaValue = $thisButton.siblings(".description").val();
+    var hourId = $thisButton.parent(".time-block").attr("id");
+
+    console.log(textAreaValue)
+    saveTaskToStorage(textAreaValue, hourId)
+  });
   
-  return;
 }
+
+
 
 generateTimes();
 
 $(function () {
+  
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -82,23 +88,17 @@ $(function () {
     //
   });
   
-// $(".btn saveBtn col-2 col-md-1").click(){
-//   console.log("CLICK");
+function saveTaskToStorage(task, id){
+  localStorage.setItem(id, task);
+}
 
-//   }
-// )
-// function saveTaskToStorage(tasks){
-//   tasks = hourEl($(this).attr());
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-//   return;
-// }
+function getTaskFromStorage(){
+  var tasks = localStorage.getItem("tasks")
+  if(tasks){
+    tasks = JSON.parse(tasks)
+  } else {
+    tasks = [];
+  }
+  return tasks;
+}
 
-// function getTaskFromStorage(){
-//   var tasks = localStorage.getItem("tasks")
-//   if(tasks){
-//     tasks = JSON.parse(tasks)
-//   } else {
-//     tasks = [];
-//   }
-//   return tasks;
-// }
